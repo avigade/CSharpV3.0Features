@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitlyTypedLocalVariabl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplicitlyTypedLocalVariablesProg", "ImplicitlyTypedLocalVariablesProg\ImplicitlyTypedLocalVariablesProg.csproj", "{319B6BE0-0A28-42A6-8FC3-10CF525D1103}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtensionMethods", "ExtensionMethods", "{2E89B01B-79AE-4F88-83A2-EB47D3EB729E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionMethods", "ExtensionMethods\ExtensionMethods.csproj", "{50F0CF6C-7704-43D9-A41D-AF9149D645EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +21,16 @@ Global
 		{319B6BE0-0A28-42A6-8FC3-10CF525D1103}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{319B6BE0-0A28-42A6-8FC3-10CF525D1103}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{319B6BE0-0A28-42A6-8FC3-10CF525D1103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F0CF6C-7704-43D9-A41D-AF9149D645EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F0CF6C-7704-43D9-A41D-AF9149D645EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F0CF6C-7704-43D9-A41D-AF9149D645EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F0CF6C-7704-43D9-A41D-AF9149D645EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{319B6BE0-0A28-42A6-8FC3-10CF525D1103} = {AC108A32-D312-4294-A631-2AB9376A3C6B}
+		{50F0CF6C-7704-43D9-A41D-AF9149D645EB} = {2E89B01B-79AE-4F88-83A2-EB47D3EB729E}
 	EndGlobalSection
 EndGlobal
