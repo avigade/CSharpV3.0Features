@@ -6,23 +6,89 @@ using System.Threading.Tasks;
 
 namespace LambdaExpressions
 {
-    class Program
+    public class Employee
     {
-        static void Main(string[] args)
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+    public class Program
+    {
+        public delegate bool IsStartsWith(Employee stud, string val);
+        public static void Main(string[] args)
         {
             // in C# 2.0 Anonymous methods were introduced.
             // Lambda expressions provide a more concise, functional syntax for writing anonymous methods.
 
             List<Employee> lsEmp = new List<Employee>()
             {
-                new Employee { ID = 1, Name = "Avi" },
-                new Employee { ID = 2, Name = "Pav" },
-                new Employee { ID = 3, Name = "Raj" }
+                new Employee { ID = 1, Name = "Avi", Age = 26 },
+                new Employee { ID = 2, Name = "Pav", Age = 25 },
+                new Employee { ID = 3, Name = "Raj", Age = 30 },
+                new Employee { ID = 4, Name = "Mah", Age = 27 }
             };
             Console.WriteLine("Employees List\r\n");
-            lsEmp.ForEach(x => Console.WriteLine("Employee ID : "+ x.ID + " Name: " + x.Name));
+            lsEmp.ForEach(x => Console.WriteLine("Employee ID : " + x.ID + " Name: " + x.Name));
 
-            Console.WriteLine("\r\n\r\nUsing Anonymous method to get the Employee where ID = 2 .......");
+            UsingAnonymousMethodAndLamda(lsEmp);
+
+
+            // Delegate Lamda Anonymous Expression
+            UsingDelegateLamdaAndAnonymous(lsEmp);
+
+
+            //Function Delegates with Anonymous Expression
+            UsingFunctionDelegateAndAnonymous(lsEmp);
+
+
+            //Action Delegates with Anonymous Expression
+            UsingActionDelegateAndAnonymous(lsEmp);
+
+
+
+            Console.Read();
+        }
+
+        private static void UsingActionDelegateAndAnonymous(List<Employee> lsEmp)
+        {
+            Console.WriteLine("\r\n//Action Delegates with Anonymous Expression-----------------");
+            Console.WriteLine("Declaring Local variable 'PrintEmployeeDetails' of Action type.");
+            Console.WriteLine("Use the Action delegate type when you don't need to return any value from lambda expression. \r\n");
+            Action<Employee> PrintEmployeeDetails = (e => Console.WriteLine("Emp Name: '" + e.Name + "' Age: " + e.Age));
+
+            Console.WriteLine("Printing Empoyee details: \r\n");
+            PrintEmployeeDetails(lsEmp.Find(delegate (Employee emp)
+            {
+                return emp.ID == 1;
+            }));
+        }
+
+        private static void UsingFunctionDelegateAndAnonymous(List<Employee> lsEmp)
+        {
+            Console.WriteLine("\r\n//Function Delegates with Anonymous Expressions---------------");
+            Console.WriteLine("Declaring Local variable 'isEmpTeenager' of function type.");
+            Func<Employee, bool> isEmpTeenager = s => s.Age > 12 && s.Age < 20;
+
+            Console.WriteLine(" a teenage? " + isEmpTeenager(lsEmp.Find(delegate (Employee emp) { Console.Write(" Is Emp: '" + emp.Name + "'"); return emp.ID == 1; })));
+        }
+
+        private static void UsingDelegateLamdaAndAnonymous(List<Employee> lsEmp)
+        {
+            Console.WriteLine("\r\n//Delegate Lambda Anonymous Expression--------------");
+            IsStartsWith isStartsWith = (s, val) =>
+            {
+                Console.WriteLine("IsStartsWith is a Delegate with Lambda expression with multiple statements in the body");
+                Console.WriteLine("Emp Name: '" + s.Name + "', Starts With: '" + val + "'");
+                return s.Name.Substring(0, val.Length) == val;
+            };
+
+
+            Console.WriteLine("isStartsWith: " + isStartsWith(lsEmp.Find(delegate (Employee emp) { return emp.ID < 2; }), "Av"));
+        }
+
+        private static void UsingAnonymousMethodAndLamda(List<Employee> lsEmp)
+        {
+            Console.WriteLine("\r\n\r\n//Using Anonymous method to get the Employee where ID = 2 .......");
             Employee emp1 = lsEmp.Find(
                 delegate (Employee emp)
                 {
@@ -31,14 +97,14 @@ namespace LambdaExpressions
 
             Console.WriteLine(emp1 != null ? "Emp Found: " + emp1.Name : "Emp not found");
 
-            Console.WriteLine("\r\nUsing Lambda Expression to get the Employee where Id = 3 .....");
+            Console.WriteLine("\r\n//Using Lambda Expression to get the Employee where Id = 3 .....");
             emp1 = lsEmp.Find(x => x.ID == 3);
 
             Console.WriteLine(emp1 != null ? "Emp Found: " + emp1.Name : "Emp not found");
 
 
 
-            Console.WriteLine("\r\nUsing Anonymous method to get the Employees where Id < 2.......");
+            Console.WriteLine("\r\n//Using Anonymous method to get the Employees where Id < 2.......");
             List<Employee> emp2 = lsEmp.FindAll(
                 delegate (Employee emp)
                 {
@@ -50,18 +116,11 @@ namespace LambdaExpressions
                 );
             emp2.ForEach(x => Console.WriteLine("Employee Found, Name: " + x.Name));
 
-            Console.WriteLine("\r\nUsing Lambda Expression to get the Employees where Id < 3.......");
+            Console.WriteLine("\r\n//Using Lambda Expression to get the Employees where Id < 3.......");
             emp2 = lsEmp.FindAll(x => x.ID < 3);
 
             emp2.ForEach(x => Console.WriteLine("Employee Found, Name: " + x.Name));
-
-            Console.Read();
         }
     }
 
-    class Employee
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-    }
 }
