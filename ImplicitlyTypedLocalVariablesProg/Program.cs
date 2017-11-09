@@ -22,7 +22,7 @@ namespace ImplicitlyTypedLocalVariablesProg
             var i = 5; // We know that var here explicitly is 'int'
             var s = "Hello"; // var here explicitly is 'String'
             var d = 1.0; // var here explicitly double
-            var numbers = new int[] { 1, 2, 3 }; // var here explicitly int[]
+            var numbers = new int[] { 1, 2, 3 }; // var here explicitly is int[]
             var orders = new Dictionary<int, string>(); // var here explicitly Dictionary<int,string>
 
             //Lets Get their Types in the output

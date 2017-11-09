@@ -44,7 +44,7 @@ namespace LambdaExpressions
             //Action Delegates with Anonymous Expression
             UsingActionDelegateAndAnonymous(lsEmp);
 
-
+            OverLoadResolution();
 
             Console.Read();
         }
@@ -120,6 +120,55 @@ namespace LambdaExpressions
             emp2 = lsEmp.FindAll(x => x.ID < 3);
 
             emp2.ForEach(x => Console.WriteLine("Employee Found, Name: " + x.Name));
+        }
+
+        private static void OverLoadResolution()
+        {
+            ItemList<Orders> orders = Orders.GetMoreOrders();
+            int totalUnits = orders.Sum(d => d.OrderCount);
+            double orderTotal = orders.Sum(d => d.UnitPrice * d.OrderCount);
+        }
+    }
+
+    public class ItemList<T> : List<T>
+    {
+        public int Sum(Func<T, int> selector)
+        {
+            int sum = 0;
+            foreach (T item in this)
+            {
+                sum += selector(item);
+            }
+            return sum;
+        }
+
+        public double Sum(Func<T, double> selector)
+        {
+            double sum = 0;
+            foreach (T item in this)
+            {
+                sum += selector(item);
+            }
+            return sum;
+        }
+    }
+
+    public class Orders
+    {
+        public string OrderID { get; set; }
+        public int OrderCount { get; set; }
+        public double UnitPrice { get; set; }
+
+        internal static ItemList<Orders> GetMoreOrders()
+        {
+            return new ItemList<Orders>() {
+                new Orders() { OrderID = Guid.NewGuid().ToString(), UnitPrice = 156.25, OrderCount = 50 },
+                new Orders() { OrderID = Guid.NewGuid().ToString(), UnitPrice = 500.99, OrderCount = 20 },
+                new Orders() { OrderID = Guid.NewGuid().ToString(), UnitPrice = 756.58, OrderCount = 10 },
+                new Orders() { OrderID = Guid.NewGuid().ToString(), UnitPrice = 800, OrderCount = 8 },
+                new Orders() { OrderID = Guid.NewGuid().ToString(), UnitPrice = 355.69, OrderCount = 40 },
+                new Orders() { OrderID = Guid.NewGuid().ToString(), UnitPrice = 400, OrderCount = 30 },
+            };
         }
     }
 
